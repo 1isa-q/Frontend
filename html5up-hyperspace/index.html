@@ -21,7 +21,7 @@
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
 							<li><a href="#two">Invoices</a></li>
-							<li><a href="#one">User Settings</a></li>
+							<li><a href="#one" onlick = "displayUser()">User Settings</a></li>
 							<li><a href="welcome.html">Log Out</a></li>
 						</ul>
 					</nav>
@@ -49,8 +49,11 @@
 							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Sed ipsum dolor</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									<h2>User information</h2>
+									<p id="userName"></p>
+									<p id="phone"></p>
+									<p id="email"></p>
+
 									<ul class="actions">
 										<li><a href="generic.html" class="button">Learn more</a></li>
 									</ul>
@@ -171,6 +174,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/dashboard.js"></script>
 
 	</body>
 </html>
