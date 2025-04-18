@@ -4156,4 +4156,37 @@ line-height: 1.6;   /* optional for nicer spacing */
 	justify-content: center;
 }
 
+.user-card {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 2rem;
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 12px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  }
+  
+  .user-avatar img {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid #888;
+  }
+  
+  .user-details p {
+	font-size: 1.1rem;
+	line-height: 1.8em;
+  }
+  
+  .changeUserInfo-button {
+	background-color: #6cc8ff;
+	color: #000;
+	font-weight: bold;
+	border-radius: 6px;
+  }
+  
+  .user-details input[type="text"] {
+	height: 40px; /* or try 28px, 24px depending on how short you want it */
+  }
   

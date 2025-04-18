@@ -21,7 +21,7 @@
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
 							<li><a href="#invoicesPage" onclick= "allInvoice()">Invoices</a></li>
-							<li><a href="#userSettingsPage" onclick = "userInformation()">User Settings</a></li>
+							<li><a href="#userSettingsPage" onclick = "userInformation()">User Profile</a></li>
 							<li><a href="#helpPage">Help</a></li>
 							<li><a onclick = "signOut()">Log Out</a></li>
 						</ul>
@@ -44,29 +44,57 @@
 						</div>
 					</section>
 
-				<!-- userSettings -->
-					<section id="userSettingsPage" class="wrapper style2 spotlights">
-						<div class = "inner user-list">
-							<div class="user-info">
-								<div class = "user-text">
-									<center>
-										<h1>User Information</h1>
-										<p><strong>UserID:</strong></p>
-										<p id = "userId"></p>
-										<p><strong>Username:</strong></p>
-										<p id = "username"></p>
-										<p><strong>Phone:</strong></p>
-										<p id = "phone"></p>
-										<p><strong>Email:</strong></p>
-										<p id = "email"></p>
-									</center>
-								</div>
-							</div>
+				<!-- User Settings Page -->
+				<section id="userSettingsPage" class="wrapper style2 fade-up">
+					<div class="inner">
+					<h1 class="major">User Profile</h1>
+					
+					<div class="user-card">
+						<div class="user-avatar">
+							<img src="images/avatar.png" alt="User Avatar" style="width: 150px; height: 148px; border-radius: 100px;" />
 						</div>
-						<!--Link to change infomration page-->
-						<center><button class = "changeUserInfo-button">Change Information</button></center>
+				
+						<div class="user-details">
+							<p><strong>UserID:</strong> <span id="userId"></span></p>
+							<p><strong>Username:</strong> <span id="username"></span></p>
+							<p><strong>Phone:</strong> <span id="phone"></span></p>
+							<p><strong>Email:</strong> <span id="email"></span></p>
+						</div>
+					</div>
+				
+					<ul class="actions" style="margin-top: 2em;">
+						<li><a href="#editUser" class="button primary changeUserInfo-button">Edit Info</a></li>
+					</ul>
+					</div>
+				</section>
 
-					</section>
+				<!-- Edit User Section (initially hidden) -->
+				<section id="editUser" class="wrapper style2 fade-up" style="display: none;">
+					<div class="inner">
+					<h1 class="major">Edit Profile</h1>
+				
+					<div class="user-card">
+						<div class="user-avatar">
+						<img src="images/avatar.png" alt="User Avatar" style="width: 150px; height: 148px; border-radius: 100px;" />
+						</div>
+				
+						<div class="user-details">
+						<p><strong>UserID:</strong> <input type="text" id="editUserId" placeholder="" readonly /></p>
+						<p><strong>Username:</strong> <input type="text" id="editUsername" placeholder="" /></p>
+						<p><strong>Phone:</strong> <input type="text" id="editPhone" placeholder="" /></p>
+						<p><strong>Email:</strong> <input type="text" id="editEmail" placeholder="" /></p>
+						</div>
+					</div>
+
+					    <!-- Save Button positioned like Edit Info -->
+					<ul class="actions" style="margin-top: 2em;">
+						<li><a href="#" class="button primary" onclick="saveUserInfo()">Save</a></li>
+					</ul>
+					</div>
+				</section>
+  
+  
+  
 
 				<!-- invoice -->
 				<section id="invoicesPage" class="wrapper style3 fade-up">
@@ -96,6 +124,7 @@
 
 						</div>
 					  </div>
+				</section>
 
 
 				<!--Help Page-->
@@ -141,6 +170,34 @@
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/dashboard.js"></script>
 			<script src="assets/js/healthcheck.js"></script>
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+				  const editButton = document.querySelector(".changeUserInfo-button");
+				  const profileSection = document.getElementById("userSettingsPage");
+				  const editSection = document.getElementById("editUser");
+			  
+				  editButton.addEventListener("click", function (e) {
+					e.preventDefault();
+			  
+					// Hide profile section
+					profileSection.style.display = "none";
+			  
+					// Show edit section
+					editSection.style.display = "block";
+			  
+					// Scroll to it
+					editSection.scrollIntoView({ behavior: "smooth" });
+			  
+					// Set placeholders
+					document.getElementById("editUserId").placeholder = document.getElementById("userId").innerText;
+					document.getElementById("editUsername").placeholder = document.getElementById("username").innerText;
+					document.getElementById("editPhone").placeholder = document.getElementById("phone").innerText;
+					document.getElementById("editEmail").placeholder = document.getElementById("email").innerText;
+				  });
+				});
+			  </script>
+			  
 
 	</body>
 </html>
+
