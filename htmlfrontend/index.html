@@ -20,8 +20,8 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
-							<li><a href="#invoicesPage" onclick= "allInvoice()">Invoices</a></li>
-							<li><a href="#userSettingsPage" onclick = "userInformation()">User Settings</a></li>
+							<li><a href="#invoicesPage">Invoices</a></li>
+							<li><a href="#userSettingsPage">User Settings</a></li>
 							<li><a href="#helpPage">Help</a></li>
 							<li><a onclick = "signOut()">Log Out</a></li>
 						</ul>
@@ -39,7 +39,7 @@
 							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
 							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
 							<ul class="actions">
-								<li><a href="#two" class="button">Invoices</a></li>
+								<li><a href="#invoicesPage" class="button">Invoices</a></li>
 							</ul>
 						</div>
 					</section>
@@ -79,7 +79,6 @@
 					  </div>
 
 					  <button class="create-button" onclick = "createInvoice()">+ CREATE AN INVOICE</button>
-					  
 				  
 					  <!-- Invoice Items -->
 					  <div class="invoice-item" id = "allInvoices">
@@ -93,13 +92,13 @@
 						<div class="invoice-actions">
 						  <a href="generic.html">Edit</a> |
 						  <a href="#" onclick = "markPaid()">Pay</a>
-
 						</div>
 					  </div>
+				</section>
 
 
 				<!--Help Page-->
-				<section id="helpPage" class="wrapper style3 fade-up">
+				<section id="helpPage" class="wrapper style4 fade-up">
 					<!-- Wrapper -->
 					<div id="wrapper">
 					<!-- API Health Check -->
