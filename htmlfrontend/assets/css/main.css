@@ -4113,7 +4113,47 @@ textarea {
   box-sizing: border-box;
 }
 
+
+.userr-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+  }
+
+
+.user-info {
+	background: rgba(255, 255, 255, 0.05);
+	border: 5px solid #c75193;
+	border-radius: 4px;
+	padding: 5rem 5rem; /* reduced vertical padding */
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	font-size: 1.05rem; /* optional: smaller text */
+	line-height: 1.4;    /* tighter line height */
+  }
+
+.user-text {
+flex: 1;
+margin: 0 1em;
+color: rgba(255, 255, 255, 0.9);
+font-size: 1.25rem; /* increased font size */
+line-height: 1.6;   /* optional for nicer spacing */
+}
   
-  
+.changeUserInfo-button {
+	height: 56px; /* match new search bar height */
+	padding: 0 1.8rem;
+	background-color: #c75193;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 0.9rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
   

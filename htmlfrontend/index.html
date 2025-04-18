@@ -20,10 +20,10 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
-							<li><a href="#two">Invoices</a></li>
-							<li><a href="#one">User Settings</a></li>
-							<li><a href="#three">Help</a></li> 
-							<li><a href="welcome.html">Log Out</a></li>
+							<li><a href="#invoicesPage" onclick= "allInvoice()">Invoices</a></li>
+							<li><a href="#userSettingsPage" onclick = "userInformation()">User Settings</a></li>
+							<li><a href="#helpPage">Help</a></li>
+							<li><a onclick = "signOut()">Log Out</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -39,53 +39,37 @@
 							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
 							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
 							<ul class="actions">
-								<li><a href="#one" class="button">Learn more</a></li>
+								<li><a href="#two" class="button">Invoices</a></li>
 							</ul>
 						</div>
 					</section>
 
-				<!-- One -->
-					<section id="one" class="wrapper style2 spotlights">
-						<section>
-							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>User information</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
+				<!-- userSettings -->
+					<section id="userSettingsPage" class="wrapper style2 spotlights">
+						<div class = "inner user-list">
+							<div class="user-info">
+								<div class = "user-text">
+									<center>
+										<h1>User Information</h1>
+										<p><strong>UserID:</strong></p>
+										<p id = "userId"></p>
+										<p><strong>Username:</strong></p>
+										<p id = "username"></p>
+										<p><strong>Phone:</strong></p>
+										<p id = "phone"></p>
+										<p><strong>Email:</strong></p>
+										<p id = "email"></p>
+									</center>
 								</div>
 							</div>
-						</section>
-						<section>
-							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Feugiat consequat</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-						<section>
-							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Ultricies aliquam</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
+						</div>
+						<!--Link to change infomration page-->
+						<center><button class = "changeUserInfo-button">Change Information</button></center>
+
 					</section>
 
-				<!-- Two -->
-				<section id="two" class="wrapper style3 fade-up">
+				<!-- invoice -->
+				<section id="invoicesPage" class="wrapper style3 fade-up">
 					<div class="inner invoice-list">
 				  
 					  <!-- Top Bar -->
@@ -98,7 +82,7 @@
 					  
 				  
 					  <!-- Invoice Items -->
-					  <div class="invoice-item">
+					  <div class="invoice-item" id = "allInvoices">
 						<div class="invoice-status">#111<br><small>Issued</small></div>
 						<div class="invoice-info">
 						  <p><strong>To:</strong> Alexey Novikov</p>
@@ -108,53 +92,34 @@
 						</div>
 						<div class="invoice-actions">
 						  <a href="generic.html">Edit</a> |
-						  <a href="#">Pay</a> |
-						  <a href="#">Archive</a>
+						  <a href="#" onclick = "markPaid()">Pay</a>
+
 						</div>
 					  </div>
-				  
-					  <!-- Repeat 9 more invoice blocks -->
-					  <div class="invoice-item">
-						<div class="invoice-status">#110<br><small>Issued</small></div>
-						<div class="invoice-info">
-						  <p><strong>To:</strong> Jamie Wong</p>
-						  <p><strong>Date:</strong> Apr 23, 2022</p>
-						  <p><strong>Amount:</strong> $300.00</p>
-						  <p><strong>Outstanding:</strong> $200.00</p>
+
+
+				<!--Help Page-->
+				<section id="helpPage" class="wrapper style3 fade-up">
+					<!-- Wrapper -->
+					<div id="wrapper">
+					<!-- API Health Check -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+						<h1 class="major">API Health Check</h1>
+						<p>This page checks the status of the backend services to ensure everything is running properly.</p>
+						<div id="health-status" style="padding: 1rem; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;">
+							Loading...
 						</div>
-						<div class="invoice-actions">
-						  <a href="generic.html">Edit</a> |
-						  <a href="#">Pay</a> |
-						  <a href="#">Archive</a>
+						<div style="margin-top: 1.5rem;"></div>
+						<h1 class="major">Still having issues?</h1>
+						<p>Even though all systems are showing as active, if you're still experiencing problems, try the following:</p>
+						<ul style="margin-top: 0;"></ul>
+							<li>Clear your browser cache and cookies</li>
+							<li>Ensure you're using the latest version of your browser</li>
+							<li>Try accessing the page from a different device or network</li>
+						</ul>
 						</div>
-					  </div>
-				  
-					  <div class="invoice-item">
-						<div class="invoice-status">#109<br><small>Issued</small></div>
-						<div class="invoice-info">
-						  <p><strong>To:</strong> Cesar Espinoza</p>
-						  <p><strong>Date:</strong> Apr 22, 2022</p>
-						  <p><strong>Amount:</strong> $450.00</p>
-						  <p><strong>Outstanding:</strong> $0.00</p>
-						</div>
-						<div class="invoice-actions">
-						  <a href="generic.html">Edit</a> |
-						  <a href="#">Pay</a> |
-						  <a href="#">Archive</a>
-						</div>
-					  </div>
-				  
-					  <!-- Add more invoice-item blocks here -->
-					  <!-- Example filler data -->
-					  <div class="invoice-item"><div class="invoice-status">#108<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Alice Green</p><p><strong>Date:</strong> Apr 21, 2022</p><p><strong>Amount:</strong> $120.00</p><p><strong>Outstanding:</strong> $50.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-					  <div class="invoice-item"><div class="invoice-status">#107<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Bob Tran</p><p><strong>Date:</strong> Apr 20, 2022</p><p><strong>Amount:</strong> $80.00</p><p><strong>Outstanding:</strong> $80.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-					  <div class="invoice-item"><div class="invoice-status">#106<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Daniel Ho</p><p><strong>Date:</strong> Apr 19, 2022</p><p><strong>Amount:</strong> $75.00</p><p><strong>Outstanding:</strong> $75.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-					  <div class="invoice-item"><div class="invoice-status">#105<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Emma Liu</p><p><strong>Date:</strong> Apr 18, 2022</p><p><strong>Amount:</strong> $200.00</p><p><strong>Outstanding:</strong> $50.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-					  <div class="invoice-item"><div class="invoice-status">#104<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Lee Zhang</p><p><strong>Date:</strong> Apr 17, 2022</p><p><strong>Amount:</strong> $95.00</p><p><strong>Outstanding:</strong> $0.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-					  <div class="invoice-item"><div class="invoice-status">#103<br><small>Issued</small></div><div class="invoice-info"><p><strong>To:</strong> Kevin Lam</p><p><strong>Date:</strong> Apr 16, 2022</p><p><strong>Amount:</strong> $150.00</p><p><strong>Outstanding:</strong> $150.00</p></div><div class="invoice-actions"><a href="generic.html">Edit</a> | <a href="#">Pay</a> | <a href="#">Archive</a></div></div>
-				  
-					</div>
-				  </section>
+					</section>
 
 
 		<!-- Footer -->
@@ -175,6 +140,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/dashboard.js"></script>
+			<script src="assets/js/healthcheck.js"></script>
 
 	</body>
 </html>

@@ -1,10 +1,14 @@
 
 //event listener to when the document loads
-document.addEventListener("DOMContentLoaded", function() {
-    const userInfoList = setParams();
-  });
+//document.addEventListener("DOMContentLoaded", function() {
+//    const userInfoList = setParams();
+//    const customerID = userInfoList[0];
+//  });
 
 //getting the stored local params
+
+
+
 async function setParams(){
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
     const userId = customerInfo.customerID;
@@ -20,14 +24,17 @@ async function setParams(){
 
 async function signOut(){
     sessionStorage.clear();
-    window.location.href = "login.html";
+    window.location.href = "welcome.html";
 }
 
-async function allInvoice(customerID){
+async function allInvoice(){
     //customerID will be returned as a promise object
     //use await to get the actual value
     //userId is the actual value
-    userId = await customerID
+    const userInfoList = await setParams();
+    const userId = userInfoList[0];
+
+    
     console.log(userId)
     
 
@@ -59,11 +66,13 @@ async function allInvoice(customerID){
 //somehow shows all the invoice in a list on the page
 async function listInvoice(invoiceList){
     //console.log(invoiceList[0].customerID)
-
+    console.log("List function called")
     //convert the invoices objects into a double array
     //what needs to be displayed: invoice ID, status, the dates
     invoice = [];
     console.log(invoiceList[0])
+
+    return;
     //calling get status function while there is elements in the list
     i = 0;
     while (i < listCount){
@@ -93,6 +102,19 @@ async function listInvoice(invoiceList){
     return;
     console.log('inside listInvoice function')
     console.log(list);
+
+
+    //<div class="invoice-item" id = "allInvoices">
+    //<div class="invoice-status">#111<br><small>Issued</small></div>
+    //<div class="invoice-info">
+      //<p><strong>To:</strong> Alexey Novikov</p>
+      //<p><strong>Date:</strong> Apr 24, 2022</p>
+     // <p><strong>Amount:</strong> $100.00</p>
+    //  <p><strong>Outstanding:</strong> $100.00</p>
+    //</div>
+    //<div class="invoice-actions">
+     // <a href="generic.html">Edit</a> |
+      //<a href="#" onclick = "markPaid()">Pay</a>
 }
 
 //////////////////////////////////
@@ -103,8 +125,6 @@ async function listInvoice(invoiceList){
 async function createInvoice(){
     const xml = document.getElementById("xml").value;
     console.log(xml);
-
-
 
     const params = {
         userId: userId,
@@ -147,3 +167,46 @@ async function searchInvoice(){
 
 ////////////////////////////////////////////
 
+async function userInformation(){
+    const userInfoList = await setParams();
+    const uDisplay = document.getElementById("userId");
+    const pDisplay = document.getElementById("phone");
+    const nDisplay = document.getElementById("username");
+    const eDisplay = document.getElementById("email");
+
+    const userId = userInfoList[0];
+    const phone = userInfoList[1];
+    const username = userInfoList[2];
+    const email = userInfoList[3];
+
+    uDisplay.textContent = userId;
+    pDisplay.textContent = phone;
+    nDisplay.textContent = username;
+    eDisplay.textContent = email;
+
+    console.log(userId, username, phone, email)
+}
+
+//////////////////////////////////////////
+async function markPaid(){
+    console.log("called marked Paid")
+
+    return;
+    const userInfoList = await setParams();
+  
+
+    const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/mark-paid`,{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        //have to stringify the JSON file in order to use the fetch command
+        //params is already set above which takes in the value that users input
+        body: JSON.stringify(params)
+    });
+
+    //data returned from the API call(res) will be called 'data'
+    const data = await res.json();
+    const code = data.statusCode;
+    
+}
