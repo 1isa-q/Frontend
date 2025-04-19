@@ -20,8 +20,8 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
-							<li><a href="#invoicesPage" onclick= "allInvoice()">Invoices</a></li>
-							<li><a href="#userSettingsPage" onclick = "userInformation()">User Profile</a></li>
+							<li><a href="#invoicesPage">Invoices</a></li>
+							<li><a href="#userSettingsPage">User Profile </a></li>
 							<li><a href="#helpPage">Help</a></li>
 							<li><a onclick = "signOut()">Log Out</a></li>
 						</ul>
@@ -59,6 +59,7 @@
 							<p><strong>Username:</strong> <span id="username"></span></p>
 							<p><strong>Phone:</strong> <span id="phone"></span></p>
 							<p><strong>Email:</strong> <span id="email"></span></p>
+							<p><strong>Password:</strong> <span id="password"></span></p>
 						</div>
 					</div>
 				
@@ -83,12 +84,13 @@
 						<p><strong>Username:</strong> <input type="text" id="editUsername" placeholder="" /></p>
 						<p><strong>Phone:</strong> <input type="text" id="editPhone" placeholder="" /></p>
 						<p><strong>Email:</strong> <input type="text" id="editEmail" placeholder="" /></p>
+						<p><strong>Password:</strong> <input type="text" id="editPassword" placeholder="" /></p>
 						</div>
 					</div>
 
 					    <!-- Save Button positioned like Edit Info -->
 					<ul class="actions" style="margin-top: 2em;">
-						<li><a href="#" class="button primary" onclick="saveUserInfo()">Save</a></li>
+						<li><a href="#" class="button primary" onclick="changeUserDetails()">Save</a></li>
 					</ul>
 					</div>
 				</section>
@@ -149,6 +151,7 @@
 						</ul>
 						</div>
 					</section>
+				</section>
 
 
 		<!-- Footer -->
@@ -170,32 +173,7 @@
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/dashboard.js"></script>
 			<script src="assets/js/healthcheck.js"></script>
-			<script>
-				document.addEventListener("DOMContentLoaded", function () {
-				  const editButton = document.querySelector(".changeUserInfo-button");
-				  const profileSection = document.getElementById("userSettingsPage");
-				  const editSection = document.getElementById("editUser");
-			  
-				  editButton.addEventListener("click", function (e) {
-					e.preventDefault();
-			  
-					// Hide profile section
-					profileSection.style.display = "none";
-			  
-					// Show edit section
-					editSection.style.display = "block";
-			  
-					// Scroll to it
-					editSection.scrollIntoView({ behavior: "smooth" });
-			  
-					// Set placeholders
-					document.getElementById("editUserId").placeholder = document.getElementById("userId").innerText;
-					document.getElementById("editUsername").placeholder = document.getElementById("username").innerText;
-					document.getElementById("editPhone").placeholder = document.getElementById("phone").innerText;
-					document.getElementById("editEmail").placeholder = document.getElementById("email").innerText;
-				  });
-				});
-			  </script>
+
 			  
 
 	</body>
