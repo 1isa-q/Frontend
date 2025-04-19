@@ -50,9 +50,7 @@
 					<h1 class="major">User Profile</h1>
 					
 					<div class="user-card">
-						<div class="user-avatar">
-							<img src="images/avatar.png" alt="User Avatar" style="width: 150px; height: 148px; border-radius: 100px;" />
-						</div>
+	
 				
 						<div class="user-details">
 							<p><strong>UserID:</strong> <span id="userId"></span></p>
@@ -72,26 +70,25 @@
 				<!-- Edit User Section (initially hidden) -->
 				<section id="editUser" class="wrapper style2 fade-up" style="display: none;">
 					<div class="inner">
-					<h1 class="major">Edit Profile</h1>
-				
-					<div class="user-card">
-						<div class="user-avatar">
-						<img src="images/avatar.png" alt="User Avatar" style="width: 150px; height: 148px; border-radius: 100px;" />
+						<h1 class="major">Edit Profile</h1>
+					
+						<div class="user-card">
+							<div class="user-details">
+							<p><strong>UserID:</strong> <input type="text" id="editUserId" placeholder="" readonly /></p>
+							<p><strong>Username:</strong> <input type="text" id="editUsername" placeholder="" /></p>
+							<p><strong>Phone:</strong> <input type="text" id="editPhone" placeholder="" /></p>
+							<p><strong>Email:</strong> <input type="text" id="editEmail" placeholder="" /></p>
+							<p><strong>Password:</strong> <input type="text" id="editPassword" placeholder="" /></p>
+							</div>
 						</div>
-				
-						<div class="user-details">
-						<p><strong>UserID:</strong> <input type="text" id="editUserId" placeholder="" readonly /></p>
-						<p><strong>Username:</strong> <input type="text" id="editUsername" placeholder="" /></p>
-						<p><strong>Phone:</strong> <input type="text" id="editPhone" placeholder="" /></p>
-						<p><strong>Email:</strong> <input type="text" id="editEmail" placeholder="" /></p>
-						<p><strong>Password:</strong> <input type="text" id="editPassword" placeholder="" /></p>
-						</div>
-					</div>
 
-					    <!-- Save Button positioned like Edit Info -->
-					<ul class="actions" style="margin-top: 2em;">
-						<li><a href="#" class="button primary" onclick="changeUserDetails()">Save</a></li>
-					</ul>
+							<!-- Save Button positioned like Edit Info -->
+						<ul class="actions" style="margin-top: 2em;">
+					
+							<li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
+							<li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button">Back to Profile</a></li>
+							<li><p id="userDetailsChangeMessage"></p></li>
+						</ul>
 					</div>
 				</section>
   
@@ -112,20 +109,9 @@
 					  
 				  
 					  <!-- Invoice Items -->
-					  <div class="invoice-item" id = "allInvoices">
-						<div class="invoice-status">#111<br><small>Issued</small></div>
-						<div class="invoice-info">
-						  <p><strong>To:</strong> Alexey Novikov</p>
-						  <p><strong>Date:</strong> Apr 24, 2022</p>
-						  <p><strong>Amount:</strong> $100.00</p>
-						  <p><strong>Outstanding:</strong> $100.00</p>
-						</div>
-						<div class="invoice-actions">
-						  <a href="generic.html">Edit</a> |
-						  <a href="#" onclick = "markPaid()">Pay</a>
+					  <div class="invoice-item" id = "allInvoices"> </div>
 
-						</div>
-					  </div>
+					</div>
 				</section>
 
 

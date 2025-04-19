@@ -4156,6 +4156,36 @@ line-height: 1.6;   /* optional for nicer spacing */
 	justify-content: center;
 }
 
+.changeUserInfoBack-button {
+	height: 56px; /* match new search bar height */
+	padding: 0 1.8rem;
+	background-color: #c75193;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 0.9rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.changeUserSave-button {
+	height: 56px; /* match new search bar height */
+	padding: 0 1.8rem;
+	background-color: #c75193;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 0.9rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .user-card {
 	display: flex;
 	align-items: center;
