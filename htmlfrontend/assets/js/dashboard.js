@@ -1,58 +1,50 @@
-//get info upon load page
 
-document.addEventListener("DOMContentLoaded", function() {
+//event listener to when the document loads
+//document.addEventListener("DOMContentLoaded", function() {
+//    const userInfoList = setParams();
+//    const customerID = userInfoList[0];
+//  });
+
+//getting the stored local params
+
+
+
+async function setParams(){
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
-
-    //for userInfo
-    const uDisplay = document.getElementById("userId");
-    const pDisplay = document.getElementById("phone");
-    const nDisplay = document.getElementById("username");
-    const eDisplay = document.getElementById("email");
-
     const userId = customerInfo.customerID;
     const phone = customerInfo.phone;
     const username = customerInfo.username;
     const email = customerInfo.email;
 
-    uDisplay.textContent = userId;
-    pDisplay.textContent = phone;
-    nDisplay.textContent = username;
-    eDisplay.textContent = email;
+    const userInfoList = [userId, phone, username, email]
+    console.log(userInfoList);
 
-    console.log("here is customerinfo")
-    console.log(userId, username, phone, email)
-
-    //For invoiceDisplay
-
-
-    invoiceList = allInvoice(userId);
-    });
-
+    return userInfoList
+}
 
 async function signOut(){
     sessionStorage.clear();
     window.location.href = "welcome.html";
 }
 
-async function allInvoice(customerID){
+async function allInvoice(){
     //customerID will be returned as a promise object
     //use await to get the actual value
     //userId is the actual value
-    const userId = await customerID;
+    const userInfoList = await setParams();
+    const userId = userInfoList[0];
 
-    console.log("inside allInvoice")
     
+    console.log(userId)
+    
+
     try{
         //calling list all invoice
         const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices`);
         //data returned from the API call(res) will be called 'data'
         const data = await res.json();
         const invoiceList = data.body;
-        const data1 = invoiceList[0]
 
-        console.log("The list of Invoices")
-        console.log(invoiceList)
-        console.log(data1)
 
         //return error 
         if(!res.ok){
@@ -61,7 +53,7 @@ async function allInvoice(customerID){
         }
 
         //create invoice objects for each invoice in the invoiceList
-        listTheInvoice(invoiceList, userId);
+        listInvoice(invoiceList);
     }
     catch(error){
         console.error(error);
@@ -72,66 +64,13 @@ async function allInvoice(customerID){
 //////////////////////////////////////
 
 //somehow shows all the invoice in a list on the page
-async function listTheInvoice(invoiceList, customerID){
-    const displayAllInvoices = document.getElementById("allInvoices");
+async function listInvoice(invoiceList){
     //console.log(invoiceList[0].customerID)
-    console.log("List function called");
+    console.log("List function called")
     //convert the invoices objects into a double array
     //what needs to be displayed: invoice ID, status, the dates
-
-    const userId = await customerID;
-
-    console.log(invoiceList[0]);
-    console.log("here");
-
-
-
-    
-    invoiceId = "0257724236";
-
-    console.log(userId);
-
-
-    try{
-        //calling list status 
-        const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/status`);
-        const data = await res.json();
-        const code = data.statusCode;
-
-        console.log(data)
-
-        const statusPaid = data[0];
-        const creationDate = data[1];
-        const dueDate = data[2];
-
-
-        //return error 
-        if(!res.ok){
-            console.log('Error');
-            return;
-        }
-
-        displayAllInvoices.innerHTML = `
-            <div class="invoice-status">#111<br><small>Issued</small></div>
-            <div class="invoice-info">
-            <p><strong>InvoiceID: </strong>${invoiceList[0]}</p>
-            <p><strong>To:</strong> xxx</p>
-            <p><strong>Creation Date:</strong> ${statusPaid}</p>
-            <p><strong>Due Date:</strong> ${creationDate}</p>
-            <p><strong>Outstanding:</strong> ${dueDate}</p>
-            </div>
-            <div class="invoice-actions">
-            <a href="generic.html">Edit</a> |
-            <a href="#" onclick = "markPaid()">Pay</a>
-            </div>`;
-
-
-
-    }
-    catch(error){
-        console.error(error);
-    }
-
+    invoice = [];
+    console.log(invoiceList[0])
 
     return;
     //calling get status function while there is elements in the list
@@ -227,7 +166,7 @@ async function searchInvoice(){
 }
 
 ////////////////////////////////////////////
-/*
+
 async function userInformation(){
     const userInfoList = await setParams();
     const uDisplay = document.getElementById("userId");
@@ -247,8 +186,6 @@ async function userInformation(){
 
     console.log(userId, username, phone, email)
 }
-
-*/
 
 //////////////////////////////////////////
 async function markPaid(){
