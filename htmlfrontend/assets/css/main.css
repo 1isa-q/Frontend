@@ -4219,4 +4219,31 @@ line-height: 1.6;   /* optional for nicer spacing */
   .user-details input[type="text"] {
 	height: 40px; /* or try 28px, 24px depending on how short you want it */
   }
+
+  .create-invoice-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2em;
+	margin-top: 2em;
+  }
+  
+  .invoice-card {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	padding: 2em;
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	transition: transform 0.3s ease;
+  }
+  
+  .invoice-card:hover {
+	transform: translateY(-5px);
+  }
+  
+  .invoice-card .icon-box {
+	font-size: 2.5em;
+	color: #c75193;
+	margin-bottom: 1em;
+  }
+  
   
