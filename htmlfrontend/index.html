@@ -145,7 +145,7 @@
 						</div>
 						<!-- Back button -->
 						<ul class="actions" style="margin-top: 2em;">
-							<li><a href="#invoicesPage" class="button">← Back to Invoices</a></li>
+							<li><a class="button" onclick = "specificPageReload('index.html#invoicesPage')">← Back to Invoices</a></li>
 							</ul>
 					</div>
 				</section>
@@ -166,7 +166,7 @@
 								<h3>Create Invoice from Order</h3>
 								<p>Generate an invoice by using existing order data</p>
 								
-								<a href="#" class="button create-button">Start</a>
+								<a href="#helpPage" class="button create-button">Start</a>
 								</div>
 							</div>
 						</div>
@@ -186,7 +186,7 @@
 						</br>
 							<p id="createByUploadMessage"></p>
 							<li><a class = "button" onclick = "uploadXML()">Upload Invoice</a></li>
-							<li><a class = "button" href="#invoicesPage" >Back to invoice page</a></li>
+							<li><a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a></li>
 						</div>
 				</section>
 

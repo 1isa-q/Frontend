@@ -394,7 +394,6 @@ async function listTheInvoice(InvoiceID, customerID){
 
             </div>
             <div class="invoice-actions">
-            <a href="generic.html">Edit</a> |
             <a href="#" onclick = "markPaid(${userId},${InvoiceID})">Pay</a> |
             <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
             <a href="#" onclick = "pdfInvoice(${userId},${InvoiceID})">Download</a>
@@ -468,9 +467,6 @@ async function uploadXML(){
         console.log("put invoice successful, validating invoice");
         validateInvoice(userId, invoiceId);
     }
-
-
-    
 }
 
 ////////////////////
@@ -503,8 +499,6 @@ async function validateInvoice(customerID, invoiceID){
 
         deleteInvoice(userId, invoiceId)
         message.textContent = "Invoice format validation unsuccessful";
-        
-  
     }
     else{
 
@@ -529,6 +523,8 @@ async function deleteInvoice(customerID, invoiceID){
 
     deleteData = res.json();
     console.log("In delete Data")
+
+    specificPageReload('index.html#invoicesPage')
 }
 
 /////////////////////////////////
@@ -582,9 +578,8 @@ async function pdfInvoice(customerID, invoiceID){
 
 /////////////////////////////////
 
-async function specificPageReload(location){
-    const loc = location;
-
-    location.reload();
-    window.location.href(loc);
+async function specificPageReload(loc){
+    console.log("specificPageReload called" )
+    window.location.reload()
+    window.location.replace(loc)
 }
