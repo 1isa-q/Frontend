@@ -141,7 +141,10 @@ async function allInvoice(){
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
     const userId = customerInfo.customerID;
 
-    
+
+    //display invoice here
+    const displayAllInvoices = document.getElementById("allInvoices");
+
     console.log(userId)
     
 
@@ -152,6 +155,13 @@ async function allInvoice(){
         const data = await res.json();
         const invoiceList = data.body;
 
+        //lists all the invoiceIDs
+        console.log(invoiceList)
+
+
+        //amount of Invoice
+        const amountOfInvoice = invoiceList.length;
+        console.log("The amount of invoice is" + amountOfInvoice);
 
         //return error 
         if(!res.ok){
@@ -159,11 +169,23 @@ async function allInvoice(){
             return;
         }
         let i = 0;
+        let theList = [];
 
-        const first = invoiceList[0]
-        console.log(first);
 
-        listTheInvoice(first, userId);
+        
+
+        while (i < amountOfInvoice){
+            target = await listTheInvoice(invoiceList[i], userId)
+            theList.push(target);
+            i = i+1;
+        }
+
+        console.log("The list of invoices" + theList)
+
+        displayAllInvoices.innerHTML = theList;
+
+
+
 
         
         //create invoice objects for each invoice in the invoiceList
@@ -331,7 +353,6 @@ async function changeUserDetails(){
 
 ///////////////////////////
 async function listTheInvoice(InvoiceID, customerID){
-    const displayAllInvoices = document.getElementById("allInvoices");
 
     console.log("List function called");
     //convert the invoices objects into a double array
@@ -346,7 +367,6 @@ async function listTheInvoice(InvoiceID, customerID){
         //calling list status 
         const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/status`);
         const data = await res.json();
-        const code = data.statusCode;
 
         console.log(data)
 
@@ -359,20 +379,64 @@ async function listTheInvoice(InvoiceID, customerID){
             console.log('Error');
             return;
         }
-        
-        displayAllInvoices.innerHTML = `
-            <div class="invoice-status">#111<br><small>Issued</small></div>
+
+        listHTML = (`
+            <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
             <div class="invoice-info">
+            <p><strong>CustomerID:</strong>${userId}</p>
             <p><strong>InvoiceID: </strong>${InvoiceID}</p>
             <p><strong>To:</strong> xxx</p>
-            <p><strong>Creation Date:</strong> ${statusPaid}</p>
             <p><strong>Due Date:</strong> ${creationDate}</p>
             <p><strong>Outstanding:</strong> ${dueDate}</p>
             </div>
             <div class="invoice-actions">
             <a href="generic.html">Edit</a> |
-            <a href="#" onclick = "markPaid()">Pay</a>
-            </div>`;
+            <a href="#" onclick = "markPaid()">Pay</a> |
+            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
+            </div>
+   
+            <hr width="100%" size="8" color= #c75193 noshade>`);
+        
+        console.log(listHTML)
+
+        return listHTML;
+
+        theInvoiceList = [
+            `
+            <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
+            <div class="invoice-info">
+            <p><strong>CustomerID:</strong>${userId}</p>
+            <p><strong>InvoiceID: </strong>${InvoiceID}</p>
+            <p><strong>To:</strong> xxx</p>
+            <p><strong>Due Date:</strong> ${creationDate}</p>
+            <p><strong>Outstanding:</strong> ${dueDate}</p>
+            </div>
+            <div class="invoice-actions">
+            <a href="generic.html">Edit</a> |
+            <a href="#" onclick = "markPaid()">Pay</a> |
+            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
+            </div>
+   
+            <hr width="100%" size="8" color= #c75193 noshade>`,
+            `
+            <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
+            <div class="invoice-info">
+            <p><strong>CustomerID:</strong>${userId}</p>
+            <p><strong>InvoiceID: </strong>${InvoiceID}</p>
+            <p><strong>To:</strong> xxx</p>
+            <p><strong>Due Date:</strong> ${creationDate}</p>
+            <p><strong>Outstanding:</strong> ${dueDate}</p>
+            </div>
+            <div class="invoice-actions">
+            <a href="generic.html">Edit</a> |
+            <a href="#" onclick = "markPaid()">Pay</a> |
+            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
+            </div>
+   
+            <hr width="100%" size="8" color= #c75193 noshade>`
+        ]
+        
+        displayAllInvoices.innerHTML = theInvoiceList;
     }
     catch(error){
         console.error(error);
@@ -494,5 +558,6 @@ async function deleteInvoice(customerID, invoiceID){
 
     deleteData = res.json();
     console.log("In delete Data")
+    window.location.reload();
 
 }
