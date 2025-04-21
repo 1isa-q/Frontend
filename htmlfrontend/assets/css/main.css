@@ -4254,5 +4254,20 @@ line-height: 1.6;   /* optional for nicer spacing */
 	color: #c75193;
 	margin-bottom: 1em;
   }
+
+  .editUserCard {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2em;
+  }
+  
+  .editUserCard .field {
+	flex: 1;
+	min-width: 45%;
+  }
+  
+  .editUserCard .field.half {
+	width: 48%;
+  }
   
   

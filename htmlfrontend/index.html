@@ -65,35 +65,48 @@
 						<li><a href="#editUser" class="button primary changeUserInfo-button">Edit Info</a></li>
 					</ul>
 					</div>
-				</section>
+				</section>  
 
 				<!-- Edit User Section (initially hidden) -->
 				<section id="editUser" class="wrapper style2 fade-up" style="display: none;">
 					<div class="inner">
 						<h1 class="major">Edit Profile</h1>
 					
-						<div class="user-card">
-							<div class="user-details">
-							<p><strong>UserID:</strong> <input type="text" id="editUserId" placeholder="" readonly /></p>
-							<p><strong>Username:</strong> <input type="text" id="editUsername" placeholder="" /></p>
-							<p><strong>Phone:</strong> <input type="text" id="editPhone" placeholder="" /></p>
-							<p><strong>Email:</strong> <input type="text" id="editEmail" placeholder="" /></p>
-							<p><strong>Password:</strong> <input type="text" id="editPassword" placeholder="" /></p>
+						<div class="editUserCard" style="display: flex; flex-wrap: wrap; gap: 2.5em;">
+							<div class="field half">
+							  <label for="editUserId"><strong>User ID:</strong></label>
+							  <input type="text" id="editUserId" readonly />
 							</div>
-						</div>
-
-							<!-- Save Button positioned like Edit Info -->
-						<ul class="actions" style="margin-top: 2em;">
-					
-							<li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
-							<li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button">Back to Profile</a></li>
-							<li><p id="userDetailsChangeMessage"></p></li>
-						</ul>
-					</div>
+						  
+							<div class="field half">
+							  <label for="editUsername"><strong>Username:</strong></label>
+							  <input type="text" id="editUsername" />
+							</div>
+						  
+							<div class="field half">
+							  <label for="editPhone"><strong>Phone:</strong></label>
+							  <input type="text" id="editPhone" />
+							</div>
+						  
+							<div class="field half">
+							  <label for="editEmail"><strong>Email:</strong></label>
+							  <input type="text" id="editEmail" />
+							</div>
+						  
+							<div class="field half">
+								<label for="editPassword"><strong>Password:</strong></label>
+								<input type="password" id="editPassword" />
+							  </div>
+							  
+							  <!-- Buttons right after -->
+							  <div class="field half" style="margin-top: 2em;">
+								<ul class="actions">
+								  <li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
+								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button">Back to Profile</a></li>
+								</ul>
+							  </div>
+							  
 				</section>
-  
-  
-  
 
 				<!-- invoice -->
 				<section id="invoicesPage" class="wrapper style2 fade-up">
