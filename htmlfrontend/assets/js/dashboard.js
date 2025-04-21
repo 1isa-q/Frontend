@@ -393,3 +393,106 @@ async function searchInvoice(){
     listTheInvoice(targetInvoice, userId);
 
 }
+
+
+//////////////////////////////////////
+async function uploadXML(){
+    console.log("xml function called")
+    //get userID
+    const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
+    const userId = customerInfo.customerID;
+
+    //get XML
+    const uploadedXML = document.getElementById("uploadedXML").value;
+
+    //get invoiceID
+    const invoiceId = document.getElementById("uploadedID").value;
+
+    const params = {
+        userId: userId,
+        xml: uploadedXML,
+        invoiceId: invoiceId
+    }
+    console.log("here")
+    console.log(params)
+
+
+    const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices`,{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        //have to stringify the JSON file in order to use the fetch command
+        //params is already set above which takes in the value that users input
+        body: JSON.stringify(params)
+    });
+
+    const storeData = await res.json();
+    const storeCode = storeData.statusCode;
+    console.log(storeData)
+
+    if(storeCode == 200){
+        console.log("put invoice successful, validating invoice");
+        validateInvoice(userId, invoiceId);
+    }
+
+
+    
+}
+
+////////////////////
+async function validateInvoice(customerID, invoiceID){
+    
+    const userId = await customerID;
+    const invoiceId = await invoiceID;
+
+    const message = document.getElementById("createByUploadMessage");
+
+    const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/validate`);
+    console.log("called validate")
+
+    const checkData = await res.json();
+    console.log('checkData here')
+    console.log(checkData)
+    const checkStatus = checkData.body;
+    const valid = JSON.parse(checkStatus).status
+
+
+    console.log('Status here')
+    console.log(checkStatus)
+    console.log(valid)
+
+
+
+    if(valid == false){
+        console.log("validation failed")
+        console.log(checkData)
+
+        deleteInvoice(userId, invoiceId)
+        message.textContent = "Invoice format validation unsuccessful";
+        
+  
+    }
+    else{
+
+        console.log("validation successful")
+        message.textContent = "Invoice upload successful";
+    }
+}
+
+/////////////////////////////
+async function deleteInvoice(customerID, invoiceID){
+    const userId = await customerID;
+    const invoiceId = await invoiceID;
+
+    const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}`,{
+        method:'DELETE',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    });
+
+    deleteData = res.json();
+    console.log("In delete Data")
+
+}
