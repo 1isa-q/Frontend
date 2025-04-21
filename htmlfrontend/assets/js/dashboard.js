@@ -240,26 +240,32 @@ async function createInvoice(){
 
 
 
-async function markPaid(){
+async function markPaid(customerID, invoiceID){
     console.log("called marked Paid")
 
-    return;
-    const userInfoList = await setParams();
+    const userId = await customerID;
+    const invoiceId = await invoiceID;
+
+    const link = `https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/mark-paid`
+
+    console.log(link)
+
   
 
     const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/mark-paid`,{
-        method:'POST',
+        method:'PATCH',
         headers:{
             'Content-Type': 'application/json'
-        },
+        }
         //have to stringify the JSON file in order to use the fetch command
         //params is already set above which takes in the value that users input
-        body: JSON.stringify(params)
     });
 
     //data returned from the API call(res) will be called 'data'
     const data = await res.json();
     const code = data.statusCode;
+
+    console.log(data)
     
 }
 
@@ -389,7 +395,7 @@ async function listTheInvoice(InvoiceID, customerID){
             </div>
             <div class="invoice-actions">
             <a href="generic.html">Edit</a> |
-            <a href="#" onclick = "markPaid()">Pay</a> |
+            <a href="#" onclick = "markPaid(${userId},${InvoiceID})">Pay</a> |
             <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
             <a href="#" onclick = "pdfInvoice(${userId},${InvoiceID})">Download</a>
             </div>
