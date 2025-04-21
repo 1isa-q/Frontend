@@ -39,7 +39,7 @@
 							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
 							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
 							<ul class="actions">
-								<li><a href="#two" class="button">Invoices</a></li>
+								<li><a href="##invoicesPage" class="button">Invoices</a></li>
 							</ul>
 						</div>
 					</section>
@@ -120,6 +120,7 @@
 					  </div>
 
 					  <a href="#createInvoicePage" class="button create-button">+ CREATE AN INVOICE</a>
+					  <a href="#emailInvoicePage" class="button create-button">+ EMAIL AN INVOICE</a>
 
 					  
 				  
@@ -183,7 +184,8 @@
 								</div>
 							</div>
 						</div>
-					</section>
+				</section>
+				
 
 
 				<!--Upload XML directly-->
@@ -198,10 +200,30 @@
 							<textarea id="uploadedXML" name="uploadXML" rows="50" cols="50"></textarea>
 						</br>
 							<p id="createByUploadMessage"></p>
-							<li><a class = "button" onclick = "uploadXML()">Upload Invoice</a></li>
-							<li><a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a></li>
+							<a class = "button" onclick = "uploadXML()">Upload Invoice</a>
+							<a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a>
 						</div>
 				</section>
+
+
+
+				<!--EMAIL INVOICE-->
+				<section id="emailInvoicePage" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Email invoice</h1>
+						<p>Enter the ID of the invoice you would like to email:</p>
+						<input type="text" id="emailInvoiceID"/>
+					</br>
+						<p>Enter the recipent's email address:</p>
+
+						<input type="text" id="emailInvoiceAddress"/>
+					</br>
+						<p id="emailMessage"></p>
+						<a class = "button" onclick = "emailInvoice()">Email invoice</a>
+				</br>
+						<a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a>
+					</div>
+			</section>
 
 					
 					  

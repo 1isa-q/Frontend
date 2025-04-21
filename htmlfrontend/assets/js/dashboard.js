@@ -396,7 +396,7 @@ async function listTheInvoice(InvoiceID, customerID){
             <div class="invoice-actions">
             <a href="#" onclick = "markPaid(${userId},${InvoiceID})">Pay</a> |
             <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
-            <a href="#" onclick = "pdfInvoice(${userId},${InvoiceID})">Download</a>
+            <a href="#" onclick = "downloadPDF(${userId},${InvoiceID})">Download</a>
             </div>
    
             <hr width="100%" size="8" color= #c75193 noshade>`);
@@ -528,11 +528,25 @@ async function deleteInvoice(customerID, invoiceID){
 }
 
 /////////////////////////////////
-async function emailInvoice(customerID, invoiceID){
-    const userId = await customerID;
-    const invoiceId = await invoiceID;
+async function emailInvoice(){
+    const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
+    const userId = customerInfo.customerID;
+    const userEmail = customerInfo.email;
+    
+
+    const invoiceId = document.getElementById("emailInvoiceID").value;
+    const targetEmail = document.getElementById("emailInvoiceAddress").value;
 
     console.log("called Email Invoice")
+
+    //getting the PDF link
+    const link = await pdfInvoice(userId, invoiceId)
+
+    console.log("link after out of pdfInvoice")
+
+    console.log(link)
+    //todo: call the email API and send it over
+
 }
 
 
@@ -540,7 +554,6 @@ async function emailInvoice(customerID, invoiceID){
 async function pdfInvoice(customerID, invoiceID){
     console.log('called pdf Invoice')
 
-    const button = document.getElementById("dlPDFbutton");
 
     let userId = await customerID;
     let invoiceId = await invoiceID;
@@ -563,17 +576,30 @@ async function pdfInvoice(customerID, invoiceID){
     
         const storeData = await res.json();
         console.log(storeData)
-        window.open(storeData)
+
+        return storeData;
+        
     }
     catch(error){
         console.error(error);
     }
 
-
-
-
-
 }
+/////////////////////////////////////////
+async function downloadPDF(customerID, invoiceID){
+    let userId = await customerID;
+    let invoiceId = await invoiceID;
+
+    const link = await pdfInvoice(userId, invoiceId)
+
+    window.open(link)
+}
+
+
+
+
+
+
 
 
 /////////////////////////////////
