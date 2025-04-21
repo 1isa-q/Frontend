@@ -3939,8 +3939,16 @@ table {
 	padding-right: 1rem; /* optional: space for scrollbar */
   }
 
+/* This is the scrollable section */
+#wrapper section#invoicesPage .inner {
+	height: 100%;
+	overflow-y: auto;
+	padding-right: 1rem; /* optional: space for scrollbar */
+	}
+
   .invoice-list {
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
   gap: 2em;
 }
@@ -3995,6 +4003,7 @@ table {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+  overflow-y: auto;
   padding: 1rem 1.2rem; /* reduced vertical padding */
   display: flex;
   justify-content: space-between;

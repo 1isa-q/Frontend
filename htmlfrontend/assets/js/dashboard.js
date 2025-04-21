@@ -184,9 +184,6 @@ async function allInvoice(){
 
         displayAllInvoices.innerHTML = theList;
 
-
-
-
         
         //create invoice objects for each invoice in the invoiceList
     }
@@ -379,20 +376,22 @@ async function listTheInvoice(InvoiceID, customerID){
             console.log('Error');
             return;
         }
+    
 
         listHTML = (`
             <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
             <div class="invoice-info">
             <p><strong>CustomerID:</strong>${userId}</p>
             <p><strong>InvoiceID: </strong>${InvoiceID}</p>
-            <p><strong>To:</strong> xxx</p>
             <p><strong>Due Date:</strong> ${creationDate}</p>
             <p><strong>Outstanding:</strong> ${dueDate}</p>
+
             </div>
             <div class="invoice-actions">
             <a href="generic.html">Edit</a> |
             <a href="#" onclick = "markPaid()">Pay</a> |
-            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
+            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
+            <a href="#" onclick = "pdfInvoice(${userId},${InvoiceID})">Download</a>
             </div>
    
             <hr width="100%" size="8" color= #c75193 noshade>`);
@@ -401,42 +400,6 @@ async function listTheInvoice(InvoiceID, customerID){
 
         return listHTML;
 
-        theInvoiceList = [
-            `
-            <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
-            <div class="invoice-info">
-            <p><strong>CustomerID:</strong>${userId}</p>
-            <p><strong>InvoiceID: </strong>${InvoiceID}</p>
-            <p><strong>To:</strong> xxx</p>
-            <p><strong>Due Date:</strong> ${creationDate}</p>
-            <p><strong>Outstanding:</strong> ${dueDate}</p>
-            </div>
-            <div class="invoice-actions">
-            <a href="generic.html">Edit</a> |
-            <a href="#" onclick = "markPaid()">Pay</a> |
-            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
-            </div>
-   
-            <hr width="100%" size="8" color= #c75193 noshade>`,
-            `
-            <div class="invoice-status">Payment Status: <br><small>${statusPaid}</small></div>
-            <div class="invoice-info">
-            <p><strong>CustomerID:</strong>${userId}</p>
-            <p><strong>InvoiceID: </strong>${InvoiceID}</p>
-            <p><strong>To:</strong> xxx</p>
-            <p><strong>Due Date:</strong> ${creationDate}</p>
-            <p><strong>Outstanding:</strong> ${dueDate}</p>
-            </div>
-            <div class="invoice-actions">
-            <a href="generic.html">Edit</a> |
-            <a href="#" onclick = "markPaid()">Pay</a> |
-            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a>
-            </div>
-   
-            <hr width="100%" size="8" color= #c75193 noshade>`
-        ]
-        
-        displayAllInvoices.innerHTML = theInvoiceList;
     }
     catch(error){
         console.error(error);
@@ -549,6 +512,8 @@ async function deleteInvoice(customerID, invoiceID){
     const userId = await customerID;
     const invoiceId = await invoiceID;
 
+
+
     const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}`,{
         method:'DELETE',
         headers:{
@@ -558,6 +523,62 @@ async function deleteInvoice(customerID, invoiceID){
 
     deleteData = res.json();
     console.log("In delete Data")
-    window.location.reload();
+}
 
+/////////////////////////////////
+async function emailInvoice(customerID, invoiceID){
+    const userId = await customerID;
+    const invoiceId = await invoiceID;
+
+    console.log("called Email Invoice")
+}
+
+
+////////////////////////////////
+async function pdfInvoice(customerID, invoiceID){
+    console.log('called pdf Invoice')
+
+    const button = document.getElementById("dlPDFbutton");
+
+    let userId = await customerID;
+    let invoiceId = await invoiceID;
+    console.log("params here" + invoiceID + userId)
+
+    const params = {
+        userId: userId,
+        invoiceId: invoiceId
+    }
+
+    console.log("params here" + invoiceID + userId)
+
+    try{
+        const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/pdf`,{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+    
+        const storeData = await res.json();
+        console.log(storeData)
+        window.open(storeData)
+    }
+    catch(error){
+        console.error(error);
+    }
+
+
+
+
+
+}
+
+
+/////////////////////////////////
+
+async function specificPageReload(location){
+    const loc = location;
+
+    location.reload();
+    window.location.href(loc);
 }
