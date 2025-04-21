@@ -529,6 +529,7 @@ async function deleteInvoice(customerID, invoiceID){
 
 /////////////////////////////////
 async function emailInvoice(){
+    //service_41zj1oj service ID
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
     const userId = customerInfo.customerID;
     const userEmail = customerInfo.email;
@@ -546,6 +547,21 @@ async function emailInvoice(){
 
     console.log(link)
     //todo: call the email API and send it over
+
+    const params = {
+        title: "Invoice",
+        email: targetEmail,
+        invoiceId: invoiceId,
+        link: link
+    }
+
+    emailjs.send("service_41zj1oj", "template_bd5hezm", params)
+    .then(()=>{
+        console.log("Email sent")
+    })
+    .catch((error)=> {
+        console.log(error);
+    })
 
 }
 
@@ -609,3 +625,6 @@ async function specificPageReload(loc){
     window.location.reload()
     window.location.replace(loc)
 }
+
+//////////////////////////
+
