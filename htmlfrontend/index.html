@@ -20,7 +20,7 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
-							<li><a href="#invoicesPage" id = "backToInvoice">Invoices</a></li>
+							<li><a href="#invoicesPage" onclick = "clearInvoice()">Invoices</a></li>
 							<li><a href="#userSettingsPage" id = "refreshUserDetails">User Profile </a></li>
 							<li><a href="#helpPage">Help</a></li>
 							<li><a onclick = "signOut()">Log Out</a></li>
@@ -39,7 +39,7 @@
 							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
 							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
 							<ul class="actions">
-								<li><a href="#invoicesPage" class="button" id = "backToInvoice">Invoices</a></li>
+								<li><a href="#invoicesPage" class="button" onclick = "clearInvoice()">Invoices</a></li>
 							</ul>
 						</div>
 					</section>
@@ -108,7 +108,7 @@
 								<ul class="actions">
 									<p id="userDetailsChangeMessage" style="color: #c75193;"></p>
 								  <li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
-								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button" id = "refreshUserDetails">Back to Profile</a></li>
+								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button" onclick="clearUser()">Back to Profile</a></li>
 								</ul>
 							  </div>
 						</div>
@@ -123,7 +123,7 @@
 					  <div class="invoice-header">
 						<input type="text" placeholder="Search by Invoice id" class="search-bar" id = "invoiceSearch" onfocus="this.value=''">
 						<button class="searchInvoice-button" onclick = "searchInvoice()">Search Invoice</button>
-						<button class="searchInvoice-button" id = "backToInvoice">Refresh</button>
+						<button class="searchInvoice-button" id = "backToInvoice" onclick="clearInvoice()">Refresh</button>
 						
 					  </div>
 					  <p id="searchInvoiceMessage" style="color: #c75193;"></p>
@@ -166,7 +166,7 @@
 						</div>
 						<!-- Back button -->
 						<ul class="actions" style="margin-top: 2em;">
-							<li><a class="button" id = "backToInvoice">← Back to Invoices</a></li>
+							<li><a class="button" onclick="clearInvoice()" href="#invoicesPage">← Back to Invoices</a></li>
 							</ul>
 					</div>
 				</section>
@@ -215,7 +215,7 @@
 	
 							<p id="uploadOrderIDMessage" style="color: #c75193;"></p>
 							<a class = "button" onclick = "uploadOrderID()">Import Invoice</a>
-							<a class = "button" id = "backToInvoice">Back to invoice page</a>
+							<a class = "button" onclick="clearInvoice()" href="#invoicesPage">Back to invoice page</a>
 						</div>
 					</section>
 				
@@ -234,7 +234,7 @@
 						</br>
 							<p id="createByUploadMessage" style="color: #c75193;"></p>
 							<a class = "button" onclick = "uploadXML()">Upload Invoice</a>
-							<a class = "button" id = "backToInvoice")">Back to invoice page</a>
+							<a class = "button" onclick="clearInvoice()" href = "#invoicesPage">Back to invoice page</a>
 						</div>
 				</section>
 
@@ -265,7 +265,7 @@
 
 						</br>
 						<a class = "button" href="#invoiceBuyerBasic">Next</a>
-						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+						<a class = "button" href="#invoicesPage" >Back to invoice page</a>
 					</div>
 				</section>
 
@@ -454,7 +454,7 @@
 						<p id="emailMessage" style="color: #c75193;"></p>
 						<a class = "button" onclick = "emailInvoice()">Email invoice</a>
 				</br>
-						<a class = "button" id = "backToInvoice")">Back to invoice page</a>
+						<a class = "button" id = "backToInvoice" href = "#invoicesPage">Back to invoice page</a>
 					</div>
 			</section>
 
@@ -481,6 +481,7 @@
 							<li>Try accessing the page from a different device or network</li>
 						</ul>
 						</div>
+					</div>
 					
 				</section>
 
@@ -514,24 +515,7 @@
 				})();
 			</script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-			<script>
-				$(document).ready(function(){
 
-					$("#backToInvoice").click(function(){
-						$("#invoicesPage").load("index.html#invoicesPage", allInvoice());
-						$("#searchInvoiceMessage").empty();
-						console.log("called refresh")
-					});
-
-					$("#refreshUserDetails").click(function(){
-						console.log("called refresh1")
-						$("#userSettingsPage").load("index.html#invoicesPage", refreshUser());
-
-						$("#userDetailsChangeMessage").empty();
-
-					});
-				})
-			</script>
 
 			  
 

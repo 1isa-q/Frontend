@@ -131,7 +131,6 @@ async function allInvoice(){
         //lists all the invoiceIDs
         console.log(invoiceList)
 
-
         //amount of Invoice
         const amountOfInvoice = invoiceList.length;
         console.log("The amount of invoice is" + amountOfInvoice);
@@ -143,8 +142,6 @@ async function allInvoice(){
         }
         let i = 0;
         let theList = [];
-
-
         
 
         while (i < amountOfInvoice){
@@ -160,6 +157,7 @@ async function allInvoice(){
         console.log("The list of invoices" + theList)
 
         displayAllInvoices.innerHTML = theList;
+        
 
         
         //create invoice objects for each invoice in the invoiceList
@@ -545,7 +543,8 @@ async function deleteInvoice(customerID, invoiceID){
 
     deleteData = res.json();
     console.log("In delete Data")
-    $("#refreshDIV").load("index.html#invoicesPage");
+    clearInvoice();
+
 }
 
 /////////////////////////////////
@@ -672,6 +671,23 @@ async function uploadOrderID(){
         console.error(error);
     }
 
+}
+
+/////////////////////
+
+function clearInvoice(){
+    $("#searchInvoiceMessage").empty();
+    $("#invoicesPage").load("index.html#invoicesPage", allInvoice());
+    console.log("called clear Invoice")
+}
+
+
+////////////////////////
+
+function clearUser(){
+    $("#userDetailsChangeMessage").empty();
+    $("#userSettingsPage").load("index.html#userSettingsPage", refreshUser());
+    console.log("called refresh User")
 }
 
 
