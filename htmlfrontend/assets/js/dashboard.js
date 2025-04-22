@@ -28,19 +28,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const profileSection = document.getElementById("userSettingsPage");
     const editSection = document.getElementById("editUser");
 
+
     allInvoice();
 
     editButton.addEventListener("click", function (e) {
         e.preventDefault();
     
         // Hide profile section
-        profileSection.style.display = "none";
+        userSettingsPage.style.display = "none";
     
         // Show edit section
-        editSection.style.display = "block";
+        editUserInfo.style.display = "block";
     
         // Scroll to it
-        editSection.scrollIntoView({ behavior: "smooth" });
+        editUserInfo.scrollIntoView({ behavior: "smooth" });
     
         // Set placeholders
         document.getElementById("editUserId").placeholder = document.getElementById("userId").innerText;
@@ -54,13 +55,13 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
     
         // Hide profile section
-        profileSection.style.display = "block";
+        userSettingsPage.style.display = "block";
     
         // Show edit section
-        editSection.style.display = "none";
+        editUserInfo.style.display = "none";
     
         // Scroll to it
-        profileSection.scrollIntoView({ behavior: "smooth" });
+        userSettingsPage.scrollIntoView({ behavior: "smooth" });
         //call Session data up update info
 
         refreshUser();
@@ -95,38 +96,7 @@ async function refreshUser(){
     eDisplay.textContent = email;
     psDisplay.textContent = password;
 }
-
-//getting the stored local params
-
-
-/*
-async function setParams(){
-    const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
-    const userId = customerInfo.customerID;
-    const phone = customerInfo.phone;
-    const username = customerInfo.username;
-    const email = customerInfo.email;
-    const password = customerInfo.password;
-
-    const userInfoList = [userId, phone, username, email, password]
-    console.log(userInfoList);
-
-    const uDisplay = document.getElementById("userId");
-    const pDisplay = document.getElementById("phone");
-    const nDisplay = document.getElementById("username");
-    const eDisplay = document.getElementById("email");
-    const psDisplay = document.getElementById("password");
-
-    uDisplay.textContent = userId;
-    pDisplay.textContent = phone;
-    nDisplay.textContent = username;
-    eDisplay.textContent = email;
-    psDisplay.textContent = password;
-
-    return userInfoList
-}
-
-*/
+////////////////////////////////
 
 async function signOut(){
     sessionStorage.clear();
@@ -140,6 +110,7 @@ async function allInvoice(){
 
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
     const userId = customerInfo.customerID;
+    const message = document.getElementById("searchInvoiceMessage");
 
 
     //display invoice here
@@ -176,6 +147,10 @@ async function allInvoice(){
 
         while (i < amountOfInvoice){
             target = await listTheInvoice(invoiceList[i], userId)
+            if(target == false){
+                message.textContent = "Error displaying invoices"
+                return;
+            }
             theList.push(target);
             i = i+1;
         }
@@ -189,6 +164,7 @@ async function allInvoice(){
     }
     catch(error){
         console.error(error);
+        message.textContent = "Error displaying invoices" + error
     }
 
 
@@ -289,7 +265,6 @@ async function changeUserDetails(){
     let editMessage = document.getElementById("userDetailsChangeMessage");
 
 
-
     if(editUsername == ""){
         editUsername = username;
     }
@@ -370,6 +345,15 @@ async function listTheInvoice(InvoiceID, customerID){
         //calling list status 
         const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices/${invoiceId}/status`);
         const data = await res.json();
+        console.log("called List The Invoice")
+
+        if(data.errorMessage != null){
+            return false
+        }
+
+        if(data.statusCode == 404){
+            return false
+        }
 
         console.log(data)
 
@@ -394,9 +378,9 @@ async function listTheInvoice(InvoiceID, customerID){
 
             </div>
             <div class="invoice-actions">
-            <a href="#" onclick = "markPaid(${userId},${InvoiceID})">Pay</a> |
-            <a href="#" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
-            <a href="#" onclick = "downloadPDF(${userId},${InvoiceID})">Download</a>
+            <a href="#" id = "backToInvoice" onclick = "markPaid(${userId},${InvoiceID})">Pay</a> |
+            <a href="#" id = "backToInvoice" onclick = "deleteInvoice(${userId},${InvoiceID})">Delete</a> |
+            <a href="#" id = "backToInvoice" onclick = "downloadPDF(${userId},${InvoiceID})">Download</a>
             </div>
    
             <hr width="100%" size="8" color= #c75193 noshade>`);
@@ -416,13 +400,41 @@ async function listTheInvoice(InvoiceID, customerID){
 async function searchInvoice(){
     //getthe invoice ID
     const targetInvoice = document.getElementById("invoiceSearch").value;
+    const message = document.getElementById("searchInvoiceMessage");
+    const displayAllInvoices = document.getElementById("allInvoices");
+
+    console.log("input invoice ID" )
+    console.log(targetInvoice)
+    if(targetInvoice == ""){
+        console.log("here")
+        message.textContent = "Please enter an invoiceID to use search invoice"
+        allInvoice();
+        return;
+    }
+
 
     //get the userID
 
     const customerInfo =JSON.parse(sessionStorage.getItem('customerInfo'));
     const userId = customerInfo.customerID;
 
-    listTheInvoice(targetInvoice, userId);
+    res = await listTheInvoice(targetInvoice, userId);
+    console.log("In search invoice")
+    console.log(res)
+    console.log("here")
+
+    //return error if it isnt null
+    if(res == false){
+        message.textContent = "Invoice does not exist, please enter a valid invoice"
+        allInvoice();
+        return
+    }
+    else{
+        message.textContent = "Invoice found";
+    }
+
+    console.log("Invoice Found");
+    displayAllInvoices.innerHTML = res;
 
 }
 
@@ -438,13 +450,21 @@ async function uploadXML(){
     const uploadedXML = document.getElementById("uploadedXML").value;
 
     //get invoiceID
-    const invoiceId = document.getElementById("uploadedID").value;
+    const invoiceId = document.getElementById("uploadedXMLID").value;
+
+    //messgae
+    const message = document.getElementById("createByUploadMessage");
+
+    if(uploadXML == "" || invoiceId == ""){
+        message.textContent = "Please enter in both invoiceID and target invoice"
+    }
 
     const params = {
         userId: userId,
         xml: uploadedXML,
         invoiceId: invoiceId
     }
+
     console.log("here")
     console.log(params)
 
@@ -523,8 +543,7 @@ async function deleteInvoice(customerID, invoiceID){
 
     deleteData = res.json();
     console.log("In delete Data")
-
-    specificPageReload('index.html#invoicesPage')
+    $("#refreshDIV").load("index.html#invoicesPage");
 }
 
 /////////////////////////////////
@@ -538,10 +557,20 @@ async function emailInvoice(){
     const invoiceId = document.getElementById("emailInvoiceID").value;
     const targetEmail = document.getElementById("emailInvoiceAddress").value;
 
+    const emailStatusMessage = document.getElementById("emailMessage")
+
     console.log("called Email Invoice")
 
     //getting the PDF link
     const link = await pdfInvoice(userId, invoiceId)
+    const error = link.errorMessage
+
+    if(error != null){
+        console.log("error retriving invoice");
+        emailStatusMessage.textContent="Please double check your invoiceID"
+        return;
+    }
+
 
     console.log("link after out of pdfInvoice")
 
@@ -558,9 +587,11 @@ async function emailInvoice(){
     emailjs.send("service_41zj1oj", "template_bd5hezm", params)
     .then(()=>{
         console.log("Email sent")
+        emailStatusMessage.textContent="Email sent successfully to " + targetEmail
     })
     .catch((error)=> {
         console.log(error);
+        emailStatusMessage.textContent ="Sending email failed: " + error.text + ", please try again"
     })
 
 }
@@ -615,16 +646,31 @@ async function downloadPDF(customerID, invoiceID){
 
 
 
+//////////////////////////
 
+async function uploadOrderID(){
+    //uploadedID
+    const orderID = document.getElementById("uploadedOrderID").value;
+    console.log(orderID)
 
+    
+    const link = `https://code-crusaders-q5k9.onrender.com/v1/order/guest/${orderID}`
+    console.log(link)
+    return;
+    try{
+        const res = await fetch(`https://code-crusaders-q5k9.onrender.com/v1/order/guest/${orderID}`);
+    
+        const storeData = await res.json();
+        console.log(storeData)
 
-/////////////////////////////////
+        return storeData;
+        
+    }
+    catch(error){
+        console.error(error);
+    }
 
-async function specificPageReload(loc){
-    console.log("specificPageReload called" )
-    window.location.reload()
-    window.location.replace(loc)
 }
 
-//////////////////////////
+
 

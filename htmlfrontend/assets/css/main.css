@@ -3946,6 +3946,14 @@ table {
 	padding-right: 1rem; /* optional: space for scrollbar */
 	}
 
+
+/* This is the scrollable section */
+#wrapper section#invoiceOrder .inner {
+	height: 100%;
+	overflow-y: auto;
+	padding-right: 1rem; /* optional: space for scrollbar */
+	}
+
   .invoice-list {
   display: flex;
   overflow-y: auto;

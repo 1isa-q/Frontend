@@ -20,8 +20,8 @@
 					<nav>
 						<ul>
 							<li><a href="#intro">Dashboard</a></li>
-							<li><a href="#invoicesPage">Invoices</a></li>
-							<li><a href="#userSettingsPage">User Profile </a></li>
+							<li><a href="#invoicesPage" id = "backToInvoice">Invoices</a></li>
+							<li><a href="#userSettingsPage" id = "refreshUserDetails">User Profile </a></li>
 							<li><a href="#helpPage">Help</a></li>
 							<li><a onclick = "signOut()">Log Out</a></li>
 						</ul>
@@ -39,7 +39,7 @@
 							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
 							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
 							<ul class="actions">
-								<li><a href="##invoicesPage" class="button">Invoices</a></li>
+								<li><a href="#invoicesPage" class="button" id = "backToInvoice">Invoices</a></li>
 							</ul>
 						</div>
 					</section>
@@ -63,16 +63,17 @@
 							<p><strong>Email:</strong> <span id="email"></span></p>
 							<p><strong>Password:</strong> <span id="password"></span></p>
 						</div>
+
 					</div>
 				
 					<ul class="actions" style="margin-top: 2em;">
-						<li><a href="#editUser" class="button primary changeUserInfo-button">Edit Info</a></li>
+						<li><a href="#editUserInfo" class="button primary changeUserInfo-button">Edit Info</a></li>
 					</ul>
 					</div>
 				</section>  
 
 				<!-- Edit User Section (initially hidden) -->
-				<section id="editUser" class="wrapper style2 fade-up" style="display: none;">
+				<section id="editUserInfo" class="wrapper style2 fade-up" style="display: none;">
 					<div class="inner">
 						<h1 class="major">Edit Profile</h1>
 					
@@ -84,48 +85,50 @@
 						  
 							<div class="field half">
 							  <label for="editUsername"><strong>Username:</strong></label>
-							  <input type="text" id="editUsername" />
+							  <input type="text" id="editUsername" onfocus="this.value=''"/>
 							</div>
 						  
 							<div class="field half">
 							  <label for="editPhone"><strong>Phone:</strong></label>
-							  <input type="text" id="editPhone" />
+							  <input type="text" id="editPhone" onfocus="this.value=''"/>
 							</div>
 						  
 							<div class="field half">
 							  <label for="editEmail"><strong>Email:</strong></label>
-							  <input type="text" id="editEmail" />
+							  <input type="text" id="editEmail" onfocus="this.value=''"/>
 							</div>
 						  
 							<div class="field half">
 								<label for="editPassword"><strong>Password:</strong></label>
-								<input type="password" id="editPassword" />
+								<input type="password" id="editPassword" onfocus="this.value=''" />
 							  </div>
 							  
 							  <!-- Buttons right after -->
 							  <div class="field half" style="margin-top: 2em;">
 								<ul class="actions">
+									<p id="userDetailsChangeMessage"></p>
 								  <li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
-								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button">Back to Profile</a></li>
+								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button" id = "refreshUserDetails">Back to Profile</a></li>
 								</ul>
 							  </div>
-							  
+						</div>
+						</div>
 				</section>
 
 				<!-- invoice -->
 				<section id="invoicesPage" class="wrapper style2 fade-up">
 					<div class="inner invoice-list">
-				  
+						
 					  <!-- Top Bar -->
 					  <div class="invoice-header">
-						<input type="text" placeholder="Search by Invoice id" class="search-bar" id = "invoiceSearch">
+						<input type="text" placeholder="Search by Invoice id" class="search-bar" id = "invoiceSearch" onfocus="this.value=''">
 						<button class="searchInvoice-button" onclick = "searchInvoice()">Search Invoice</button>
+						<button class="searchInvoice-button" id = "backToInvoice">Refresh</button>
 						
 					  </div>
-
+					  <p id="searchInvoiceMessage"></p>
 					  <a href="#createInvoicePage" class="button create-button">+ CREATE AN INVOICE</a>
 					  <a href="#emailInvoicePage" class="button create-button">+ EMAIL AN INVOICE</a>
-
 					  
 				  
 					  <!-- Invoice Items -->
@@ -151,19 +154,19 @@
 							<a href="#createInvoiceFromOrder" class="button small">Start</a>
 						</div>
 					
-						<!-- Card 2: Upload File -->
-						<div class="invoice-card">
-							<div class="icon-box">
-							<span class="icon solid fa-upload"></span>
-							</div>
-							<h3>Upload File</h3>
-							<p>Import invoice data by uploading an XML file</p>
-							<a href="#uploadInvoiceFile" class="button small">Upload</a>
+							<!-- Card 2: Upload File -->
+							<div class="invoice-card">
+								<div class="icon-box">
+								<span class="icon solid fa-upload"></span>
+								</div>
+								<h3>Upload File</h3>
+								<p>Import invoice data by uploading an XML file</p>
+								<a href="#uploadInvoiceFile" class="button small">Upload</a>
 							</div>
 						</div>
 						<!-- Back button -->
 						<ul class="actions" style="margin-top: 2em;">
-							<li><a class="button" onclick = "specificPageReload('index.html#invoicesPage')">← Back to Invoices</a></li>
+							<li><a class="button" id = "backToInvoice">← Back to Invoices</a></li>
 							</ul>
 					</div>
 				</section>
@@ -171,24 +174,50 @@
 
 				<!--NEW SECTION need implelent API-->
 				<section id="createInvoiceFromOrder" class="wrapper style2 fade-up">
-						<div class="inner">
-							<h1 class="major">Create Invoice</h1>
-							<p>Select a method to create your invoice</p>
-						
-							<div class="create-invoice-grid">
-							<!-- Card 1: Create from Order -->
-							<div class="invoice-card">
+                    <div class="inner">
+                        <h1 class="major">Create Invoice</h1>
+                        <p>Select a method to create your invoice</p>
+                    
+                        <div class="create-invoice-grid">
+                        <!-- Card 1: Create from Order -->
+                        	<div class="invoice-card">
 								<div class="icon-box">
 								<span class="icon solid fa-file-alt"></span>
 								</div>
-								<h3>Create Invoice from Order</h3>
+								<h3>Create Invoice by entering order</h3>
 								<p>Generate an invoice by using existing order data</p>
 								
-								<a href="#helpPage" class="button create-button">Start</a>
-								</div>
-							</div>
+								<a href="#invoiceOrder" class="button create-button">Start</a>
+                            </div>
+
+                            <!--Card 2: have an orderID from the orderAPI directly-->
+                            <div class="invoice-card">
+                                <div class="icon-box">
+                                <span class="icon solid fa-file-alt"></span>
+                                </div>
+                                <h3>Create Invoice from Order</h3>
+                                <p>Store an invoice from existing guest orderID from Code Crusades</p>
+                                
+                                <a href="#enterOrderID" class="button create-button">Start</a>
+                            </div>
+                        </div>
+                    </div>
+            	</section>
+            
+
+
+					<!--Create Invoice from ID-->
+					<section id="enterOrderID" class="wrapper style2 fade-up">
+						<div class="inner">
+							<h1 class="major">Enter guest OrderID</h1>
+		
+							<input type="text" id="uploadedOrderID" onfocus="this.value=''"/>
+	
+							<p id="uploadOrderIDMessage"></p>
+							<a class = "button" onclick = "uploadOrderID()">Import Invoice</a>
+							<a class = "button" id = "backToInvoice">Back to invoice page</a>
 						</div>
-				</section>
+					</section>
 				
 
 
@@ -197,7 +226,7 @@
 						<div class="inner">
 							<h1 class="major">Upload invoice</h1>
 							<p>Copy paste your invoiceID:</p>
-							<input type="text" id="uploadedID" placeholder=""/>
+							<input type="text" id="uploadedXMLID" placeholder="" />
 						</br>
 							<p>Copy paste your invoice XML here:</p>
 
@@ -205,8 +234,208 @@
 						</br>
 							<p id="createByUploadMessage"></p>
 							<a class = "button" onclick = "uploadXML()">Upload Invoice</a>
-							<a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a>
+							<a class = "button" id = "backToInvoice")">Back to invoice page</a>
 						</div>
+				</section>
+
+								<!--ORDER CREATION SECTION-->
+				<section id="invoiceOrder" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter order details of your invoice:</p>
+						<p>Invoice Note:</p>
+						<input type="text" id="invoiceNote"/>
+						<p>Invoice Document Currency Code:</p>
+						<input type="text" id="documentCurrencyCode"/>
+						<p>Invoice Accounting Cost Code:</p>
+						<input type="text" id="AccountingCostCode"/>
+						<p>Invoice Validity End Date:</p>
+						<input type="text" id="validityEndDate"/>
+						<p>Invoice Note:</p>
+						<input type="text" id="quotationDocumentReferenceId"/>
+						<p>Order Document Reference ID:</p>
+						<input type="text" id="orderDocumentReferenceId"/>
+						<p>originator Document Reference ID:</p>
+						<input type="text" id="originatorDocumentReferenceId"/>
+						<p>Invoice Contract Type:</p>
+						<input type="text" id="contractType"/>
+						<p>Invoice ID:</p>
+						<!--contractID = invoiceID?-->
+						<input type="text" id="contractId"/>
+
+						</br>
+						<a class = "button" href="#invoiceBuyerBasic">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+				<!--BUYER INFO DECTION-->
+				<section id="invoiceBuyerBasic" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter buyer details of your invoice:</p>
+						<p>Buyer ID:</p>
+						<input type="text" id="buyerId"/>
+						<p>Buyer Name:</p>
+						<input type="text" id="buyername"/>
+						<p>Tax Scheme Used:</p>
+						<input type="text" id="buyerTaxScheme"/>
+
+						</br>
+						<a class = "button" href="#invoiceOrder">Back</a>
+						<a class = "button" href="#invoiceBuyerAddress">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+				<!--buyer address-->
+				<section id="invoiceBuyerAddress" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter buyer address details of your invoice:</p>
+						<p>Buyer Postbox:</p>
+						<input type="text" id="buyerpostBox"/>
+						<p>Buyer Streets Names:</p>
+						<input type="text" id="buyerstreetName"/>
+						<p>Buyer Additional Street Name</p>
+						<input type="text" id="buyeradditionalStreetName"/>
+
+						<p>Buyer Building Number</p>
+						<input type="text" id="buyerbuildingNumber"/>
+						<p>Buyer Department</p>
+						<input type="text" id="buyerdepartment"/>
+						<p>Buyer City Name</p>
+						<input type="text" id="buyercityName"/>
+						<p>Buyer Postal Zone</p>
+						<input type="text" id="buyerpostalZone"/>
+						<p>Buyer Country Subentity</p>
+						<input type="text" id="buyercountrySubentity"/>
+						<p>Buyer Country Code</p>
+						<input type="text" id="buyercountryCode"/>
+						</br>
+						<a class = "button" href="#invoiceBuyerBasic">Back</a>
+						<a class = "button" href="#invoiceBuyerInfo">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+								<!--buyer contact-->
+				<section id="invoiceBuyerInfo" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter buyer contact information:</p>
+						<input type="text" id="buyertelephone"/>
+						<input type="text" id="buyertelefax"/>
+						<input type="text" id="buyeremail"/>
+
+						<input type="text" id="buyerfirstName"/>
+						<input type="text" id="buyermiddleName"/>
+						<input type="text" id="buyerfamilyName"/>
+						<input type="text" id="buyerjobTitle"/>
+
+						</br>
+						<a class = "button" href="#invoiceBuyerAddress">Back</a>
+						<a class = "button" href="#invoiceBuyerDelivery">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+						
+					</div>
+				</section>
+
+
+								<!--buyer delivery contact-->
+				<section id="invoiceBuyerDelivery" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter buyer delivery contact details of your invoice:</p>
+						<input type="text" id="buyerDeliveryName"/>
+						<input type="text" id="buyerDeliveryTelephone"/>
+						<input type="text" id="buyerDeliveryTelefax"/>
+
+						<input type="text" id="buyerDeliveryEmail"/>
+
+						</br>
+						<a class = "button" href="#invoiceBuyerInfo">Back</a>
+						<a class = "button" href="#invoicesellerBasic">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+
+								<!--Seller INFO DECTION-->
+				<section id="invoicesellerBasic" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter seller details of your invoice:</p>
+						<input type="text" id="sellerId"/>
+						<input type="text" id="sellername"/>
+
+						</br>
+						<a class = "button" href="#invoiceOrder">Back</a>
+						<a class = "button" href="#invoicesellerAddress">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+				<!--Seller address-->
+				<section id="invoicesellerAddress" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter seller address details of your invoice:</p>
+						<input type="text" id="sellerpostBox"/>
+						<input type="text" id="sellerstreetName"/>
+						<input type="text" id="selleradditionalStreetName"/>
+
+						<input type="text" id="sellerbuildingNumber"/>
+						<input type="text" id="sellerdepartment"/>
+						<input type="text" id="sellercityName"/>
+						<input type="text" id="sellerpostalZone"/>
+						<input type="text" id="sellercountrySubentity"/>
+						<input type="text" id="sellercountryCode"/>
+						</br>
+						<a class = "button" href="#invoicesellerBasic">Back</a>
+						<a class = "button" href="#invoicesellerInfo">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+								<!--Seller contact-->
+				<section id="invoicesellerInfo" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter seller contact information:</p>
+						<input type="text" id="sellertelephone"/>
+						<input type="text" id="sellertelefax"/>
+						<input type="text" id="selleremail"/>
+
+						<input type="text" id="sellerfirstName"/>
+						<input type="text" id="sellermiddleName"/>
+						<input type="text" id="sellerfamilyName"/>
+						<input type="text" id="sellerjobTitle"/>
+
+						</br>
+						<a class = "button" href="#invoicesellerAddress">Back</a>
+						<a class = "button" href="#invoicesellerDelivery">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
+				</section>
+
+
+								<!--Seller delivery contact-->
+				<section id="invoicesellerDelivery" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h1 class="major">Invoice creation by order</h1>
+						<p>Enter seller delivery contact details of your invoice:</p>
+						<input type="text" id="sellerDeliveryName"/>
+						<input type="text" id="sellerDeliveryTelephone"/>
+						<input type="text" id="sellerDeliveryTelefax"/>
+
+						<input type="text" id="sellerDeliveryEmail"/>
+
+						</br>
+						<a class = "button" href="#invoicesellerInfo">Back</a>
+						<a class = "button" onclick = "createInvoiceOrder()">Next</a>
+						<a class = "button" href="#invoicesPage">Back to invoice page</a>
+					</div>
 				</section>
 
 
@@ -216,30 +445,27 @@
 					<div class="inner">
 						<h1 class="major">Email invoice</h1>
 						<p>Enter the ID of the invoice you would like to email:</p>
-						<input type="text" id="emailInvoiceID"/>
+						<input type="text" id="emailInvoiceID" onfocus="this.value=''"/>
 					</br>
 						<p>Enter the recipent's email address:</p>
 
-						<input type="text" id="emailInvoiceAddress"/>
+						<input type="text" id="emailInvoiceAddress" onfocus="this.value=''"/>
 					</br>
 						<p id="emailMessage"></p>
 						<a class = "button" onclick = "emailInvoice()">Email invoice</a>
 				</br>
-						<a class = "button" onclick = "specificPageReload('index.html#invoicesPage')">Back to invoice page</a>
+						<a class = "button" id = "backToInvoice")">Back to invoice page</a>
 					</div>
 			</section>
 
 					
-					  
-			
-
 
 				<!--Help Page-->
 				<section id="helpPage" class="wrapper style3 fade-up">
 					<!-- Wrapper -->
-					<div id="wrapper">
+					<div class="wrapper">
 					<!-- API Health Check -->
-					<section id="main" class="wrapper">
+					
 						<div class="inner">
 						<h1 class="major">API Health Check</h1>
 						<p>This page checks the status of the backend services to ensure everything is running properly.</p>
@@ -255,9 +481,8 @@
 							<li>Try accessing the page from a different device or network</li>
 						</ul>
 						</div>
-					</section>
+					
 				</section>
-
 
 		<!-- Footer -->
 			<footer id="footer" class="wrapper style1-alt">
@@ -287,6 +512,28 @@
 					publicKey: "n57tzeq3kuDV1egEK",
 				});
 				})();
+			</script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+			<script>
+
+
+				$(document).ready(function(){
+					$("#backToInvoice").click(function(){
+						$("#invoicesPage").load("index.html#invoicesPage", allInvoice());
+						$("#searchInvoiceMessage").empty();
+						console.log("called refresh")
+					});
+
+
+
+					$("#refreshUserDetails").click(function(){
+						$("#userSettingsPage").load("index.html#userSettingsPage", refreshUser());
+						$("#userDetailsChangeMessage").empty();
+						console.log("called refresh")
+					});
+
+					
+				})
 			</script>
 
 			  
