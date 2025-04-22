@@ -95,6 +95,8 @@ async function refreshUser(){
     nDisplay.textContent = username;
     eDisplay.textContent = email;
     psDisplay.textContent = password;
+
+    console.log("refresh User called")
 }
 ////////////////////////////////
 

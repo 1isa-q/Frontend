@@ -3875,11 +3875,13 @@ table {
 /* Intro */
 
 #intro {
-	background-attachment: fixed;
-	background-image: url("images/intro.svg");
-	background-position: top right;
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
+    background-attachment: fixed;
+    background-image: 
+        url("images/intro.svg"),
+        linear-gradient(135deg, rgba(16, 66, 192, 0.55), rgba(197, 84, 250, 0.63));
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 	#intro p {
@@ -4085,14 +4087,15 @@ table {
   }
   
   
+  /*introv2*/
   body {
-	background: #394ec7;
-	background-image: url("images/intro.svg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
-	background-attachment: fixed;
-	z-index: 0; 
+    background-attachment: fixed;
+    background-image: 
+        url("images/intro.svg"),
+        linear-gradient(135deg, rgba(16, 66, 192, 0.55), rgba(197, 84, 250, 0.63));
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
   .login-btn {

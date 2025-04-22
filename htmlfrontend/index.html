@@ -106,7 +106,7 @@
 							  <!-- Buttons right after -->
 							  <div class="field half" style="margin-top: 2em;">
 								<ul class="actions">
-									<p id="userDetailsChangeMessage"></p>
+									<p id="userDetailsChangeMessage" style="color: #c75193;"></p>
 								  <li><a href="#" class="button primary changeUserSave-button" onclick="changeUserDetails()">Save</a></li>
 								  <li><a href="#userSettingsPage" class="button primary changeUserInfoBack-button" id = "refreshUserDetails">Back to Profile</a></li>
 								</ul>
@@ -126,7 +126,7 @@
 						<button class="searchInvoice-button" id = "backToInvoice">Refresh</button>
 						
 					  </div>
-					  <p id="searchInvoiceMessage"></p>
+					  <p id="searchInvoiceMessage" style="color: #c75193;"></p>
 					  <a href="#createInvoicePage" class="button create-button">+ CREATE AN INVOICE</a>
 					  <a href="#emailInvoicePage" class="button create-button">+ EMAIL AN INVOICE</a>
 					  
@@ -213,7 +213,7 @@
 		
 							<input type="text" id="uploadedOrderID" onfocus="this.value=''"/>
 	
-							<p id="uploadOrderIDMessage"></p>
+							<p id="uploadOrderIDMessage" style="color: #c75193;"></p>
 							<a class = "button" onclick = "uploadOrderID()">Import Invoice</a>
 							<a class = "button" id = "backToInvoice">Back to invoice page</a>
 						</div>
@@ -232,7 +232,7 @@
 
 							<textarea id="uploadedXML" name="uploadXML" rows="50" cols="50"></textarea>
 						</br>
-							<p id="createByUploadMessage"></p>
+							<p id="createByUploadMessage" style="color: #c75193;"></p>
 							<a class = "button" onclick = "uploadXML()">Upload Invoice</a>
 							<a class = "button" id = "backToInvoice")">Back to invoice page</a>
 						</div>
@@ -451,7 +451,7 @@
 
 						<input type="text" id="emailInvoiceAddress" onfocus="this.value=''"/>
 					</br>
-						<p id="emailMessage"></p>
+						<p id="emailMessage" style="color: #c75193;"></p>
 						<a class = "button" onclick = "emailInvoice()">Email invoice</a>
 				</br>
 						<a class = "button" id = "backToInvoice")">Back to invoice page</a>
@@ -515,24 +515,21 @@
 			</script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 			<script>
-
-
 				$(document).ready(function(){
+
 					$("#backToInvoice").click(function(){
 						$("#invoicesPage").load("index.html#invoicesPage", allInvoice());
 						$("#searchInvoiceMessage").empty();
 						console.log("called refresh")
 					});
 
-
-
 					$("#refreshUserDetails").click(function(){
-						$("#userSettingsPage").load("index.html#userSettingsPage", refreshUser());
-						$("#userDetailsChangeMessage").empty();
-						console.log("called refresh")
-					});
+						console.log("called refresh1")
+						$("#userSettingsPage").load("index.html#invoicesPage", refreshUser());
 
-					
+						$("#userDetailsChangeMessage").empty();
+
+					});
 				})
 			</script>
 
